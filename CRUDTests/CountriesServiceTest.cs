@@ -68,7 +68,9 @@ namespace CRUDTests
 
             //Act
             CountryResponse response = _countriesService.AddCountry(request);
+            List<CountryResponse> countries_from_GetAllCountries = _countriesService.GetAllCountries();
             Assert.True(response.CountryID != Guid.Empty);
+            Assert.Contains(response, countries_from_GetAllCountries);
         }
         #endregion
 
@@ -105,9 +107,44 @@ namespace CRUDTests
             Assert.Contains(expected_country, actualCountryResponseList);
         }
         }
-   
+
         #endregion
 
+
+        #region GetCountryId
+        [Fact]
+        public void GetCountryById_NullCountryId()
+        {
+            //Arrange
+            Guid? countryId = null;
+
+            //Act
+            CountryResponse? country_response_from_get_method =
+       _countriesService.GetCountryById(countryId);
+            Assert.Null(country_response_from_get_method);
+
+        }
+        [Fact]
+        public void GetCountryByCountryID_ValidCountryID()
+        {
+            // Arrange
+            CountryAddRequest? countryAddRequest = new CountryAddRequest() { CountryName = "China" };
+            CountryResponse country_response_from_add = _countriesService.AddCountry(countryAddRequest);
+
+            // Act
+            CountryResponse? country_response_from_get = _countriesService.GetCountryById(
+                country_response_from_add.CountryID);
+
+            // Assert - Test both that it's not null AND that properties match
+            Assert.NotNull(country_response_from_add);
+            Assert.NotNull(country_response_from_get);
+
+            // Actually test the GetById functionality
+            Assert.Equal(country_response_from_add.CountryID, country_response_from_get.CountryID);
+            Assert.Equal(country_response_from_add.CountryName, country_response_from_get.CountryName);
+        }
+
+        #endregion
     }
 
 }

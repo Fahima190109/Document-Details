@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "Entities\Entiti
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceContracts", "ServiceContracts\ServiceContracts.csproj", "{A18F78EC-6ED7-45D5-A982-BF4CD87AFBAD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Srevices", "Srevices\Srevices.csproj", "{8686EC39-0803-4ADF-BCC4-2AB3FD34B353}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Srevices\Services.csproj", "{8686EC39-0803-4ADF-BCC4-2AB3FD34B353}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

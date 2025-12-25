@@ -23,7 +23,7 @@ namespace Services
                 throw new ArgumentException(nameof(countryAddRequest.CountryName));
             }
             //validation: countryName can't be duplicate
-            if(_countries.Where(temp => temp.CountryName == countryAddRequest.CountryName).
+            if (_countries.Where(temp => temp.CountryName == countryAddRequest.CountryName).
                 Count() > 0)
             {
                 throw new ArgumentException("Given country name already exists");
@@ -38,7 +38,21 @@ namespace Services
 
         public List<CountryResponse> GetAllCountries()
         {
-            throw new NotImplementedException();
+            return _countries.Select(country => country.TocountryResponse
+            ()).ToList();
         }
+
+        public CountryResponse? GetCountryById(Guid? countryID)
+        {
+            if (countryID == null) return null;
+            
+            Country? country_response_from_list = _countries.FirstOrDefault(temp => 
+            temp.CountryId == countryID);
+
+            if (country_response_from_list == null) return null;
+            return country_response_from_list.TocountryResponse();
+        }
+
+        
     }
 }

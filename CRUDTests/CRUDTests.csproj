@@ -19,7 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Entities\Entities.csproj" />
     <ProjectReference Include="..\ServiceContracts\ServiceContracts.csproj" />
-    <ProjectReference Include="..\Srevices\Srevices.csproj" />
+    <ProjectReference Include="..\Srevices\Services.csproj" />
   </ItemGroup>
 
   <ItemGroup>
