@@ -8,8 +8,8 @@ namespace CRUDTests
     public class CountriesServiceTest
     {
         private readonly ICountriesService
-            _countriesServic;
-        private CountriesService _countriesService;
+            _countriesService;
+        //private CountriesService _countriesService;
 
         //Constructor
         public CountriesServiceTest()

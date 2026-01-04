@@ -42,7 +42,7 @@ namespace Services
             ()).ToList();
         }
 
-        public CountryResponse? GetCountryById(Guid? countryID)
+        public dynamic GetCountryById(Guid? countryID)
         {
             if (countryID == null) return null;
             

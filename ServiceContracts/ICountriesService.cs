@@ -10,7 +10,7 @@ namespace ServiceContracts
 
     List<CountryResponse> GetAllCountries();
 
-    CountryResponse? GetCountryById(Guid? countryID);
+    dynamic GetCountryById(Guid? countryID);
 
     }
 }
