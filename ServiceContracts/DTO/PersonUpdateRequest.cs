@@ -1,11 +1,18 @@
 ﻿using Entities;
 using ServiceContracts.Enums;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
 namespace ServiceContracts.DTO
 {
-    public class PersonAddRequest
+    public class PersonUpdateRequest
     {
+        [Required(ErrorMessage = "Person Id can't be blank")]
+        public Guid PersonId { get; set; }
         [Required(ErrorMessage = "Person Name can't be blank")]
         public string? PersonName { get; set; }
         [Required(ErrorMessage = "Email can't be blank")]
@@ -21,15 +28,16 @@ namespace ServiceContracts.DTO
         {
             return new Person()
             {
+                PersonId = PersonId,
                 PersonName = PersonName,
                 Email = Email,
                 DateOfBirth = DateOfBirth,
                 Gender = Gender.ToString(),
                 CountryID = CountryID,
-               
                 Address = Address,
                 ReceiveNewsLetters = ReceiveNewsLetters
             };
         }
+       
     }
 }

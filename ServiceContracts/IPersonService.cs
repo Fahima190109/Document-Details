@@ -1,4 +1,5 @@
 ﻿using ServiceContracts.DTO;
+using ServiceContracts.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,10 @@ namespace ServiceContracts
         PersonResponse AddPerson(PersonAddRequest? personAddRequest);
         List<PersonResponse> GetAllPerson();
         PersonResponse? GetPersonById(Guid? personId);
-       
+       List<PersonResponse> GetFilterPersons(string searchBy, string? searchString);
+        List<PersonResponse> GetSortedPersons(List<PersonResponse> allPersons,
+            string sortedBy, SortOrderOptions sortOrder);
+        PersonResponse UpdatePerson(PersonUpdateRequest? personUpdateRequest);
+       bool DeletePerson(Guid? personId);
     }
 }

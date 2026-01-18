@@ -43,6 +43,29 @@ namespace ServiceContracts.DTO
         {
             throw new NotImplementedException();
         }
+        public override string ToString()
+        {
+            return $"Person ID: {PersonId}, Person Name: {PersonName}, " +
+                $"Email: {Email}, Date of Birth: {DateOfBirth?.ToString("dd MMM yyyy")}," +
+                $" Gender: {Gender}, Country ID: {CountryID}, Country: {Country}, " +
+                $"Address: {Address}, Receive News Letters: {ReceiveNewsLetters}";
+
+        }
+
+        public PersonUpdateRequest TopersonUpdateRequest()
+        {
+            return new PersonUpdateRequest()
+            {
+                PersonId = PersonId,
+                PersonName = PersonName,
+                Email = Email,
+                DateOfBirth = DateOfBirth,
+                Gender = (GenderOptions)Enum.Parse(typeof(GenderOptions),Gender,true),
+                Address = Address,
+                CountryID = CountryID,
+                ReceiveNewsLetters = ReceiveNewsLetters,
+            };
+        }
     }
     public static class PersonExtensions
     {
