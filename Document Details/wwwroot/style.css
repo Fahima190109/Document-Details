@@ -1,113 +1,78 @@
+
+/* Basic reset and base styles */
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
 }
 
-body {
-  color: #333;
-  font-size: 13px;
-  margin: 0;
-  width: 100%;
-  height: 100vh;
-  -webkit-font-smoothing: antialiased;
-}
-
-h3 {
-  font-family: 'Abril Fatface';
-  margin-bottom: 20px;
-}
-
-button {
-  border: none;
-  width: 100%;
-  margin: auto;
-  margin-top: 40px;
-  cursor: pointer;
-  padding: 10px 0;
-  background: #1B47DB;
-  font-size: 14px;
-  color: #fff;
-  border-radius: 4px;
-  box-shadow: 0 4px 8px 0 #CFDFFF, 0 6px 20px 0 #CFDFFF;
-  font-weight: 700;
-  transform: perspective(1px) translateZ(0);
-}
-
-.page-content {
-  padding: 10px;
-  min-height: 100vh;
-}
-
-.box {
-    margin: 10px 20px;
-    padding: 15px;
-    border-radius: 15px;
-    border: 2px solid #d3d1d1;
-    box-shadow: 0px 0px 3px 2px #ffffff;
-}
-
-.table {
-    border-collapse: collapse;
-    border: 1px solid #ffffff;
-    padding: 5px;
-    box-shadow: 0px 0px 4px 2px #e4e4e4;
-    margin: 10px 0px;
-    margin: auto;
-}
-.w-100{
-    width: 100%;
-}
-.float-left{
-    float: left;
-}
-.w-50 {
-    width: 50%;
-}
-.container{
-    min-width: 500px;
-}
-.navbar{
-    background-color: #cacaca;
-    padding: 10px;
-    box-shadow: 0px 1px 2px 2px #cacaca;
-}
-.navbar-brand {
-        margin: 0px 30px 5px 5px;
-    font-size: 1.1em;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-
-/*    display: flex;
-    justify-content: center;
+.box.flex {
+    display: flex;
+    flex-wrap: nowrap; /* Prevent wrapping of the three main columns */
     align-items: center;
-    gap: 35px;
-    padding: 25px;
-    background-color: white;
-    border-bottom: 2px solid #dee2e6;*/
-}
-.footer-content {
-    background: #1a1a2e;
-    color: #fff;
-    padding: 40px 20px;
-    text-align: center;
-    border-top: 3px solid transparent;
-    border-image: linear-gradient(45deg, #ff0000, #00ff00, #0000ff, #ffff00);
-    border-image-slice: 1;
-}
-
-.list-container{
-    margin-top: 9px;
-}
-
-.list {
-    list-style-type: none;
-    background-color: #ececec;
-    border: 1px solid #ececec;
+    gap: 1rem; /* Space between the three columns */
+    padding: 1rem;
+    background: #f5f5f5;
     border-radius: 8px;
 }
 
-    .list > li {
-        padding: 8px 12px;
-        background-color: #ffffff;
-        margin: 3px 2px;
-        border-radius: 5px;
-        transition: background-color 0.3s, color 0.3s;
+.flex-1 {
+    flex: 1; /* Each column takes equal space */
+    min-width: 0; /* Allows content to shrink if needed */
+}
+
+/* Make form elements fill their column */
+.form-input,
+.button {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+/* Button specific styling */
+.button {
+    background-color: #e0e0e0;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.button-blue-back {
+    background-color: #007bff;
+    color: white;
+    border: none;
+}
+
+/* Third column: keep button and link side by side */
+.action-group {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+    /* Ensure children in action-group do not stretch unnecessarily */
+    .action-group .button,
+    .action-group a {
+        flex: 1;
+        text-align: center;
     }
+
+/* Responsive: if screen is too narrow, allow wrapping (optional) */
+@media (max-width: 600px) {
+    .box.flex {
+        flex-wrap: wrap;
+        gap: 0.75rem;
+    }
+
+    .flex-1 {
+        flex: 1 1 100%;
+    }
+
+    .action-group {
+        flex-direction: row;
+    }
+}
+
+

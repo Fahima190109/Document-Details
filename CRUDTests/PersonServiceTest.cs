@@ -1,14 +1,9 @@
-﻿using ServiceContracts;
+﻿using Entities;
+using ServiceContracts;
 using ServiceContracts.DTO;
-using Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ServiceContracts.Enums;
+using Services;
 using Xunit.Abstractions;
-using Entities;
 
 namespace CRUDTests
 {
@@ -21,7 +16,7 @@ namespace CRUDTests
         public PersonServiceTest(ITestOutputHelper outputHelper)
         {
             _personsService = new PersonsService();
-            _countriesService = new CountriesService();
+            _countriesService = new CountriesService(false);
             _outputHelper = outputHelper;
         }
 
@@ -46,7 +41,7 @@ namespace CRUDTests
                 => _personsService.AddPerson(request));
         }
 
-        
+
 
         //When countryname is duplicate 
         // [Fact]
@@ -70,21 +65,24 @@ namespace CRUDTests
         //have a whole property of country
         [Fact]
         //Arrange
-       
+
         public void AddPeople_ProperPeopleDetails()
         {
             PersonAddRequest? request = new PersonAddRequest()
             {
-               PersonName = "Person Name..", Email = "person@djd.com",
-               Address = "sample address", CountryID = Guid.NewGuid(),
-               Gender =GenderOptions.Male,DateOfBirth = DateTime.Parse("2000-02-01"),
-               ReceiveNewsLetters = true,
+                PersonName = "Person Name..",
+                Email = "person@djd.com",
+                Address = "sample address",
+                CountryID = Guid.NewGuid(),
+                Gender = GenderOptions.Male,
+                DateOfBirth = DateTime.Parse("2000-02-01"),
+                ReceiveNewsLetters = true,
             };
 
             //Act
-           PersonResponse response = _personsService.AddPerson(request);
+            PersonResponse response = _personsService.AddPerson(request);
             List<PersonResponse> Persons_from_GetAllCountries = _personsService.GetAllPerson();
-                
+
             Assert.True(response.CountryID != Guid.Empty);
             Assert.Contains(response, Persons_from_GetAllCountries);
         }
@@ -98,12 +96,13 @@ namespace CRUDTests
             Assert.Null(person_respons_from_get);
         }
         [Fact]
-        public void GetPersonById_withId() {
+        public void GetPersonById_withId()
+        {
             CountryAddRequest countryAddRequest = new CountryAddRequest()
             {
                 CountryName = "Canada"
             };
-           CountryResponse countryRespons = _countriesService.AddCountry(countryAddRequest);
+            CountryResponse countryRespons = _countriesService.AddCountry(countryAddRequest);
             PersonAddRequest? request = new PersonAddRequest()
             {
                 PersonName = "Person Name..",
@@ -114,11 +113,11 @@ namespace CRUDTests
                 DateOfBirth = DateTime.Parse("2000-01-01"),
                 ReceiveNewsLetters = true,
             };
-            PersonResponse person_respons_from_add = 
+            PersonResponse person_respons_from_add =
                 _personsService.AddPerson(request);
             PersonResponse? person_response_from_get = _personsService.
                 GetPersonById(person_respons_from_add.PersonId);
-            Assert.Equal(person_respons_from_add, person_respons_from_add);
+            Assert.Equal(person_respons_from_add, person_response_from_get);
         }
         #endregion
 
@@ -181,14 +180,14 @@ namespace CRUDTests
             request1,request2, request3
             };
             List<PersonResponse> person_response_list_from_add = new List<PersonResponse>();
-            foreach(PersonAddRequest request in person_requests)
+            foreach (PersonAddRequest request in person_requests)
             {
-                PersonResponse persons_response =_personsService.AddPerson(request);
+                PersonResponse persons_response = _personsService.AddPerson(request);
                 person_response_list_from_add.Add(persons_response);
             }
-            
+
             //print person_response_list_from_add
-            foreach(PersonResponse personResponse_from_add in 
+            foreach (PersonResponse personResponse_from_add in
                 person_response_list_from_add)
             {
                 _outputHelper.WriteLine(personResponse_from_add.ToString());
@@ -197,7 +196,7 @@ namespace CRUDTests
             List<PersonResponse> person_response_from_get =
                 _personsService.GetAllPerson();
             // akhane amar prb
-            foreach(PersonResponse person_response_list in person_response_list_from_add)
+            foreach (PersonResponse person_response_list in person_response_list_from_add)
             {
                 Assert.Contains(person_response_list, person_response_from_get);
             }
@@ -205,7 +204,7 @@ namespace CRUDTests
         #endregion
 
         #region GetfilterPerson
-       
+
         [Fact]
         public void GetFilterPerson_StringEmptySearchTest()
         {
@@ -272,7 +271,7 @@ namespace CRUDTests
             }
             //why amra akhane person.method use korsi
             List<PersonResponse> person_response_from_search =
-                _personsService.GetFilterPersons(nameof(Person.PersonName),"");
+                _personsService.GetFilterPersons(nameof(Person.PersonName), "");
 
             //print person_response_list_from_search
             _outputHelper.WriteLine("Accpected:");
@@ -296,11 +295,11 @@ namespace CRUDTests
         {
             CountryAddRequest? countryAddRequest = new CountryAddRequest()
             {
-                CountryName = "USA"
+                CountryName = "US"
             };
             CountryAddRequest? countryAddRequest2 = new CountryAddRequest()
             {
-                CountryName = "India"
+                CountryName = "In"
             };
             CountryResponse response1 = _countriesService.AddCountry(countryAddRequest);
             CountryResponse response2 = _countriesService.AddCountry(countryAddRequest2);
@@ -371,13 +370,13 @@ namespace CRUDTests
             {
                 if (person_response_list.PersonName != null)
                 {
-                    if(person_response_list.PersonName.Contains("sm",
+                    if (person_response_list.PersonName.Contains("sm",
                         StringComparison.OrdinalIgnoreCase))
                     {
                         Assert.Contains(person_response_list, person_response_from_search);
                     }
                 }
-                
+
             }
         }
 
@@ -387,7 +386,7 @@ namespace CRUDTests
         [Fact]
         public void GetSortedPersons()
         {
-           
+
             CountryAddRequest? countryAddRequest = new CountryAddRequest()
             {
                 CountryName = "USA"
@@ -398,7 +397,7 @@ namespace CRUDTests
             };
             CountryResponse response1 = _countriesService.AddCountry(countryAddRequest);
             CountryResponse response2 = _countriesService.AddCountry(countryAddRequest2);
-            
+
             PersonAddRequest? request1 = new PersonAddRequest()
             {
                 PersonName = "Sa",
@@ -442,8 +441,8 @@ namespace CRUDTests
                 person_response_list_from_add.Add(persons_response);
             }
 
-           
-            List<PersonResponse> allpersons = _personsService.GetAllPerson(); 
+
+            List<PersonResponse> allpersons = _personsService.GetAllPerson();
             //why amra akhane person.method use korsi
             List<PersonResponse> person_response_from_sort =
                 _personsService.GetSortedPersons(allpersons,
@@ -456,7 +455,7 @@ namespace CRUDTests
             {
                 _outputHelper.WriteLine(Person_response_from_sort.ToString());
             }
-            person_response_list_from_add = 
+            person_response_list_from_add =
              person_response_list_from_add.OrderByDescending(x => x.PersonName).ToList();
             //print person_response_list_from_add
             _outputHelper.WriteLine("Actual:");
@@ -482,7 +481,8 @@ namespace CRUDTests
         public void UpdatePerson_NullPerson()
         {
             PersonUpdateRequest? personUpdateRequest = null;
-            Assert.Throws<ArgumentNullException>(() => {
+            Assert.Throws<ArgumentNullException>(() =>
+            {
                 _personsService.UpdatePerson(personUpdateRequest);
             });
         }
@@ -491,19 +491,22 @@ namespace CRUDTests
         public void UpdatePerson_InvalidPersonId()
         {
             PersonUpdateRequest? personUpdateRequest = new
-                PersonUpdateRequest() { PersonId = Guid.NewGuid()};
-            Assert.Throws<ArgumentException>(() => {
+                PersonUpdateRequest()
+            { PersonId = Guid.NewGuid() };
+            Assert.Throws<ArgumentException>(() =>
+            {
                 _personsService.UpdatePerson(personUpdateRequest);
             });
         }
         //When person full details
         [Fact]
-        public void UpdatePerson_InvalidPersonName() {
+        public void UpdatePerson_InvalidPersonName()
+        {
             CountryAddRequest countryAddRequest = new CountryAddRequest()
             {
                 CountryName = "UK"
             };
-            CountryResponse countryResponse_from_Add = 
+            CountryResponse countryResponse_from_Add =
                 _countriesService.AddCountry(countryAddRequest);
 
             PersonAddRequest personAddRequest = new PersonAddRequest()
@@ -511,18 +514,19 @@ namespace CRUDTests
                 PersonName = "John",
                 CountryID = countryResponse_from_Add.CountryID,
                 Address = "ABC road",
-                DateOfBirth  = DateTime.Parse("2000-01-05"),
+                DateOfBirth = DateTime.Parse("2000-01-05"),
                 Email = "abc@gmail.com",
                 Gender = GenderOptions.Male,
                 ReceiveNewsLetters = true,
             };
-            PersonResponse personResponse_from_add = 
+            PersonResponse personResponse_from_add =
                 _personsService.AddPerson(personAddRequest);
             PersonUpdateRequest personUpdateRequest =
                personResponse_from_add.TopersonUpdateRequest();
             personUpdateRequest.PersonName = null;
 
-            Assert.Throws<ArgumentException>(() => {
+            Assert.Throws<ArgumentException>(() =>
+            {
                 _personsService.UpdatePerson(personUpdateRequest);
             });
         }
@@ -566,7 +570,7 @@ namespace CRUDTests
             PersonResponse personResponse_from_get =
                 _personsService.GetPersonById(person_response_from_update.PersonId);
 
-           Assert.Equal(person_response_from_update, personResponse_from_get);
+            Assert.Equal(person_response_from_update, personResponse_from_get);
         }
         #endregion
         #region DeletePerson

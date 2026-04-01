@@ -33,7 +33,7 @@ namespace ServiceContracts.DTO
             DateOfBirth == person_to_compare.DateOfBirth &&
             Gender == person_to_compare.Gender &&
             CountryID == person_to_compare.CountryID &&
-            Country == person_to_compare.Country &&
+            //Country == person_to_compare.Country &&
             Address == person_to_compare.Address &&
             ReceiveNewsLetters == person_to_compare.ReceiveNewsLetters;
 
@@ -80,7 +80,7 @@ namespace ServiceContracts.DTO
                 DateOfBirth = person.DateOfBirth,
                 Gender = person.Gender,
                 CountryID = person.CountryID,
-                Country = person.Country,
+                //Country = person.Country,
                 Address = person.Address,
                 ReceiveNewsLetters = person.ReceiveNewsLetters,
                 Age = (person.DateOfBirth != null) ?
